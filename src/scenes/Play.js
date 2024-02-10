@@ -144,11 +144,13 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 	
     update() {
 			
-
+		
 		if (Phaser.Input.Keyboard.JustDown(this.keySPACE)) {
-            let randomX = Phaser.Math.Between(borderUISize, game.config.width - borderUISize);
-            let randomY = Phaser.Math.Between(borderUISize, game.config.height - borderUISize);
-            let newSpaceship = new Spaceship(this, randomX, randomY, 'spaceship', 0, 30).setOrigin(0, 0);
+			
+			
+			//let randomY = Phaser.Math.Between(borderUISize * 4, borderUISize * 13);
+			//let randomX = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
+            let newSpaceship = new Spaceship(this, game.config.width+ Phaser.Math.Between(borderUISize * 4, borderUISize * 18), Phaser.Math.Between(borderUISize * 4, borderUISize * 13), 'spaceship', 0, 30).setOrigin(0, 0);
             this.spaceships.push(newSpaceship);
         }
 
@@ -186,8 +188,30 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 
         if(!this.gameOver) {
             this.p1Rocket.update();             // update p1
-            this.ship01.update();               // update spaceship (x3)
+            this.ship01.update(); 
+
+
+	
+			if(this.ship01.x <= 0) {
+				
+
+			let newSpaceship = new Spaceship(this, game.config.width+ Phaser.Math.Between(borderUISize * 4, borderUISize * 18), Phaser.Math.Between(borderUISize * 4, borderUISize * 13), 'spaceship', 0, 30).setOrigin(0, 0);
+            this.spaceships.push(newSpaceship);
 			
+			//this.ship01.alpha = 0;
+			//this.ship01.reset();
+			
+			
+			//this.ship01.y = Phaser.Math.Between(borderUISize * 4, borderUISize * 13);
+			this.ship01. reset();
+			//alert('hey')
+			
+			}
+			
+			
+			
+				
+				
         this.spaceships.forEach(spaceship => {
             spaceship.update(); // Assuming Spaceship class has an update method for movement or animation
 

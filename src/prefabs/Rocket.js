@@ -83,7 +83,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
 			// Switch current player
 			
-			alert(this.currentPlayer)
+			//alert(this.currentPlayer)
     
 	
 	
