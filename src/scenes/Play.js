@@ -25,6 +25,12 @@ class Play extends Phaser.Scene {
 		this.scoreLeft = 0;
 		this.hey = 0;
 
+
+		this.spaceships = [];
+
+        // Define the space key
+        this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    
 		
 
         // define keys for both players
@@ -76,20 +82,6 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 
         this.ship03 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
 		
-		this.ship04 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-		
-		this.ship05 = new Spaceship(this, game.config.width+game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-
-		this.ship06 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-
-		this.ship07 = new Spaceship(this, game.config.width+game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-
-		this.ship08 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-
-		this.ship09 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-
-		this.ship10 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
-
 
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -153,7 +145,17 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
     update() {
 			
 
-	
+		if (Phaser.Input.Keyboard.JustDown(this.keySPACE)) {
+            let randomX = Phaser.Math.Between(borderUISize, game.config.width - borderUISize);
+            let randomY = Phaser.Math.Between(borderUISize, game.config.height - borderUISize);
+            let newSpaceship = new Spaceship(this, randomX, randomY, 'spaceship', 0, 30).setOrigin(0, 0);
+            this.spaceships.push(newSpaceship);
+        }
+
+        
+		
+		
+		
 	
 		if (!this.gameOver) {
             const elapsedTime = this.clock.getElapsed();
@@ -184,19 +186,23 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 
         if(!this.gameOver) {
             this.p1Rocket.update();             // update p1
-             this.ship01.update();               // update spaceship (x3)
-            this.ship02.update();
-            this.ship03.update();
+            this.ship01.update();               // update spaceship (x3)
 			
-			this.ship04.update();               // update spaceship (x3)
-            this.ship05.update();
-            this.ship06.update();
-			
-			this.ship07.update();               // update spaceship (x3)
-            this.ship08.update();
-            this.ship09.update();
-			this.ship10.update();
+        this.spaceships.forEach(spaceship => {
+            spaceship.update(); // Assuming Spaceship class has an update method for movement or animation
+
+			if (this.checkCollision(this.p1Rocket, spaceship)) {
+            this.p1Rocket.reset();
+            this.shipExplode(spaceship);
         }
+            // Example collision check with player rocket (assuming rocket is defined)
+            // if (checkCollision(this.rocket, spaceship)) {
+            //     spaceship.destroy(); // Placeholder for collision handling
+            // }
+        });
+        }
+		
+		
 
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
@@ -210,6 +216,10 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+        }
+		if (this.checkCollision(this.p1Rocket, this.spaceships)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.spaceships);
         }
     }
 
