@@ -66,13 +66,30 @@ this.p1Rocket = new Rocket(
 	
 );
 
+let randomy = Phaser.Math.Between(borderUISize * 4, borderUISize * 13);
 
-//this.p1Rocket.currentPlayer = this.currentPlayer; // Set the currentPlayer property
+let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
+		
+        this.ship01 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 30).setOrigin(0, 0);
 
-        // add Spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
-        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
-        this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+        this.ship02 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 20).setOrigin(0,0);
+
+        this.ship03 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+		
+		this.ship04 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+		
+		this.ship05 = new Spaceship(this, game.config.width+game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+
+		this.ship06 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+
+		this.ship07 = new Spaceship(this, game.config.width+game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+
+		this.ship08 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+
+		this.ship09 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+
+		this.ship10 = new Spaceship(this, game.config.width+Phaser.Math.Between(borderUISize * 4, borderUISize * 18), (Phaser.Math.Between(borderUISize * 4, borderUISize * 13)), 'spaceship', 0, 10).setOrigin(0,0);
+
 
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -170,6 +187,15 @@ this.p1Rocket = new Rocket(
              this.ship01.update();               // update spaceship (x3)
             this.ship02.update();
             this.ship03.update();
+			
+			this.ship04.update();               // update spaceship (x3)
+            this.ship05.update();
+            this.ship06.update();
+			
+			this.ship07.update();               // update spaceship (x3)
+            this.ship08.update();
+            this.ship09.update();
+			this.ship10.update();
         }
 
         // check collisions
