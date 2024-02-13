@@ -19,13 +19,14 @@ class Play extends Phaser.Scene {
 		
 		
 		
-		 this.currentPlayer = 1; // Start with player 1
+		this.currentPlayer = 1; // Start with player 1
         this.p1Score = 0;
         this.p2Score = 0;
 		this.scoreLeft = 0;
 		this.hey = 0;
 
-
+		this.rock = 0;
+		
 		this.spaceships = [];
 
         // Define the space key
@@ -39,7 +40,7 @@ class Play extends Phaser.Scene {
 		
 		
 		
-		this.timeLeftText = this.add.text(borderUISize + borderPadding, borderUISize * 2 + borderPadding * 2, 'Time Left: 60', { fontSize: '28px', fill: '#FFFFFF' });
+		this.timeLeftText = this.add.text(borderUISize + borderPadding, borderUISize * 2 + borderPadding * 2, 'Score: 0', { fontSize: '40px', fill: '#FFFFFF' });
 		this.hello = this.add.text(borderUISize + borderPadding, borderUISize * 2 + borderPadding * 3, 'hello', { fontSize: '28px', fill: '#FFFFFF' });
 
         // place tile sprite
@@ -60,8 +61,8 @@ class Play extends Phaser.Scene {
 // Pass this.scoreLeft as a parameter when creating the Rocket object
 this.p1Rocket = new Rocket(
     this,
-    game.config.width/2,
-    game.config.height - borderUISize - borderPadding,
+    game.config.width/4,
+    game.config.height - borderUISize*6 - borderPadding,
     'rocket',
     0,
     this.currentPlayer,
@@ -119,13 +120,15 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*1,  this.p1Score, scoreConfig);
-		this.hey = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*3.7,  this.p2Score, scoreConfig);
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*3.7,  this.rock, scoreConfig);
+		this.hey = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*1,  'WAVE:', scoreConfig);
+		this.scoreLeft.setText('' + this.rock);
 		
 		
 		
-		this.timeLeftText = this.add.text(borderUISize + borderPadding + 150, borderUISize * 1 + borderPadding * 2, 'Time Left: 60', { fontSize: '28px', fill: '#FFFFFF' });
-		this.hello = this.add.text(borderUISize + borderPadding + 150, borderUISize * 1.7 + borderPadding * 2, 'hello', { fontSize: '28px', fill: '#FFFFFF' });
+		
+		this.timeLeftText = this.add.text(borderUISize + borderPadding + 150, borderUISize * 1 + borderPadding * 2, 'Score: 0', { fontSize: '40px', fill: '#FFFFFF' });
+		
 		//this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
         // GAME OVER flag
         this.gameOver = false;
@@ -133,9 +136,9 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
-            this.gameOver = true;
+            //this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            //this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
+            //this.gameOver = true;
         }, null, this);
     }
 
@@ -161,9 +164,9 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 	
 		if (!this.gameOver) {
             const elapsedTime = this.clock.getElapsed();
-            const remainingTime = Math.ceil((this.game.settings.gameTimer - elapsedTime) / 1000);
-            this.timeLeftText.setText('Time Left: ' + remainingTime);
-			this.hello.setText('Player: ' + this.currentPlayer);
+            const remainingTime = Math.ceil((this.game.settings.gameTimer + elapsedTime - 60) / 1000);
+            this.timeLeftText.setText('Score: ' + (remainingTime-60));
+			//this.hello.setText('Player: ' + this.currentPlayer);
 			
 			
 			if(this.currentPlayer == 1){
@@ -194,16 +197,21 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 	
 			if(this.ship01.x <= 0) {
 				
-
-			let newSpaceship = new Spaceship(this, game.config.width+ Phaser.Math.Between(borderUISize * 4, borderUISize * 18), Phaser.Math.Between(borderUISize * 4, borderUISize * 13), 'spaceship', 0, 30).setOrigin(0, 0);
-            this.spaceships.push(newSpaceship);
+			//alert(this.rock);
+			this.rock = this.rock + 1
 			
+			let newSpaceship = new Spaceship(this, game.config.width+ Phaser.Math.Between(0, borderUISize * 18), Phaser.Math.Between(borderUISize * 4, borderUISize * 13), 'spaceship', 0, 30).setOrigin(0, 0);
+            this.spaceships.push(newSpaceship);
+			this.scoreLeft.setText('' + this.rock);
+			
+			//alert(this.rock);
 			//this.ship01.alpha = 0;
 			//this.ship01.reset();
 			
 			
 			//this.ship01.y = Phaser.Math.Between(borderUISize * 4, borderUISize * 13);
-			this.ship01. reset();
+			this.ship01.reset();
+			
 			//alert('hey')
 			
 			}
@@ -250,9 +258,9 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
     checkCollision(rocket, ship) {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
-            rocket.x + rocket.width > ship.x && 
+            rocket.x + rocket.width/3 > ship.x && 
             rocket.y < ship.y + ship.height &&
-            rocket.height + rocket.y > ship. y) {
+            rocket.height/3 + rocket.y > ship. y) {
                 return true;
         } else {
             return false;
@@ -292,17 +300,8 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 		
 		
 		if(this.currentPlayer == 1){
-        this.p1Score += ship.points;
-        
-		this.scoreLeft.setText('P1: ' + this.p1Score);
-		this.currentPlayer = 2;
+		this.scoreLeft.setText(' ' + this.rock);
 		//alert("player 1 turns to player 2");
-        } else if(this.currentPlayer == 2){
-        this.p2Score += ship.points;
-        
-		this.hey.setText('P2: ' + this.p2Score);
-		this.currentPlayer = 1;
-		//alert("player 2 turns to player 1");
         }
 		
 		

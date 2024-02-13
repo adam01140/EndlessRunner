@@ -43,14 +43,29 @@ class Menu extends Phaser.Scene {
     // Change button text colors for emphasis
     menuConfig.backgroundColor = '#A020F0'; // a different shade of purple
     menuConfig.color = '#FFFF00'; // yellow for contrast
-    this.add.text(game.config.width/2, game.config.height/2 + borderUISize + 10 + borderPadding, 'Press ← for Novice', menuConfig).setOrigin(0.5);
-	this.add.text(game.config.width/2, game.config.height/2 + borderUISize + 100 + borderPadding, 'Press → for Expert', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/2 + borderUISize + 10 + borderPadding, 'Press SPACE to start', menuConfig).setOrigin(0.5);
+	
     // define keys
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+	
+	
+	keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 }
 
     update() {
+		
+		if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+          // Novice mode
+          game.settings = {
+            spaceshipSpeed: 3,
+            gameTimer: 60000    
+          }
+          this.sound.play('sfx_select');
+          this.scene.start("playScene");    
+        }
+		
+		
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
           // Novice mode
           game.settings = {
