@@ -1,20 +1,6 @@
 {
     "frames": {
-        "hero-walk-01": {
-            "frame": {"x":0, "y":0, "width":64, "height":64},
-            "rotated": false,
-            "trimmed": false,
-            "spriteSourceSize": {"x":0, "y":0, "width":64, "height":64},
-            "sourceSize": {"w":64, "h":64}
-        },
-        "hero-walk-02": {
-            "frame": {"x":64, "y":0, "width":64, "height":64},
-            "rotated": false,
-            "trimmed": false,
-            "spriteSourceSize": {"x":0, "y":0, "width":64, "height":64},
-            "sourceSize": {"w":64, "h":64}
-        },
-        // ... Add entries for each frame ...
+               // ... Add entries for each frame ...
     },
     "meta": {
         "app": "http://www.yourwebsite.com",

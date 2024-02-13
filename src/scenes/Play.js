@@ -13,11 +13,11 @@ class Play extends Phaser.Scene {
         this.load.image('starfield', './assets/starfield.png');
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
-    
+		
 	
 	this.load.spritesheet('heroWalk', './assets/hero-sheet.png', {
-            frameWidth: 64,   // The width of each frame
-            frameHeight: 64,  // The height of each frame
+            frameWidth: 70,   // The width of each frame
+            frameHeight: 50,  // The height of each frame
             startFrame: 0,
             endFrame: 11      // Assuming you have 12 frames for the walk animation
         });
@@ -28,12 +28,12 @@ class Play extends Phaser.Scene {
     create() {
 		
 		
-		
+		this.sound.play('music');
 		this.anims.create({
             key: 'walking',
             frames: this.anims.generateFrameNumbers('heroWalk', {
                 start: 0,
-                end: 5
+                end: 7
             }),
             frameRate: 10,
             repeat: -1
@@ -168,7 +168,9 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 			
 			
 			
-			
+		
+
+		
 		if (keyRIGHT.isDown) {
             this.p1Rocket.anims.play('walking', true);
             // Add logic to move the rocket to the right
