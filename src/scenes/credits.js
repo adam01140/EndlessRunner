@@ -1,12 +1,17 @@
-class Tutorial extends Phaser.Scene {
+class Credits extends Phaser.Scene {
     constructor() {
-        super("tutorialscene");
+        super("creditsscene");
     }
 
     preload() {
         // load audio
         this.load.audio('sfx_select', './assets/blip_select12.wav');
 		this.load.audio('sfx_play', './assets/play.mp3');
+		this.load.audio('sfx_start', './assets/start.mp3');
+		
+		this.load.audio('sfx_redo', './assets/redo.mp3');
+		
+		
         this.load.audio('sfx_explosion', './assets/explosion38.wav');
         this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
 		this.load.image('spaceshipIcon', './assets/spaceship.png');
@@ -14,9 +19,7 @@ class Tutorial extends Phaser.Scene {
 
     create() {
 		
-		let spaceshipIcon = this.add.image(game.config.width / 2, game.config.height / 4 + 40, 'spaceshipIcon');
-    spaceshipIcon.setScale(0.5);
-	
+		
 		
 
 	
@@ -24,7 +27,7 @@ class Tutorial extends Phaser.Scene {
         // menu text configuration
         let menuConfig = {
         fontFamily: 'Verdana', // changed font
-        fontSize: '32px', // slightly larger text
+        fontSize: '18px', // slightly larger text
         backgroundColor: '#800080', // a shade of purple
         color: '#FFFFFF', // white for contrast
         align: 'center', // centered text
@@ -38,15 +41,26 @@ class Tutorial extends Phaser.Scene {
     }
         
         // show updated menu text
-    this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 130, 'How To Play', menuConfig).setOrigin(0.5);
-    this.add.text(game.config.width/2, game.config.height/2 -70, 'Use ←→ arrows to move', menuConfig).setOrigin(0.5);
-	this.add.text(game.config.width/2, game.config.height/2 -10, 'Avoid as many astroids as possible', menuConfig).setOrigin(0.5);
-	this.add.text(game.config.width/2, game.config.height/2 + 50, 'Press R to restart', menuConfig).setOrigin(0.5);
+    //this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 130, 'Credits', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/2 -170, 'Music:', menuConfig).setOrigin(0.5);
+	
+	this.add.text(game.config.width/2, game.config.height/2 -120, 'https://pixabay.com/music/upbeat-space-chillout-14194/', menuConfig).setOrigin(0.5);
+	
+	this.add.text(game.config.width/2, game.config.height/2 -50, 'Sound effects: ', menuConfig).setOrigin(0.5);
+	
+	this.add.text(game.config.width/2, game.config.height/2 - 0, 'https://pixabay.com/sound-effects/interface-124464/ ', menuConfig).setOrigin(0.5);
+	
+	this.add.text(game.config.width/2, game.config.height/2 + 50, 'https://pixabay.com/sound-effects/beep-6-96243/ ', menuConfig).setOrigin(0.5);
+	
+	this.add.text(game.config.width/2, game.config.height/2 + 100, 'https://pixabay.com/sound-effects/marimba-bloop-2-188149/ ', menuConfig).setOrigin(0.5);
+	
+	
+	//this.add.text(game.config.width/2, game.config.height/2 + 50, 'Press R to restart', menuConfig).setOrigin(0.5);
 	//this.add.image(game.config.width / 2, game.config.height / 4, 'spaceshipIcon');
     // Change button text colors for emphasis
     menuConfig.backgroundColor = '#A020F0'; // a different shade of purple
     menuConfig.color = '#FFFF00'; // yellow for contrast
-    this.add.text(game.config.width/2, game.config.height/2 + borderUISize + 90 + borderPadding, 'Press SPACE to begin', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/2 + borderUISize + 120 + borderPadding, 'Press SPACE to begin', menuConfig).setOrigin(0.5);
 	
     // define keys
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -64,8 +78,8 @@ class Tutorial extends Phaser.Scene {
             spaceshipSpeed: 3,
             gameTimer: 60000    
           }
-          this.sound.play('sfx_play');
-          this.scene.start("playScene");    
+          this.sound.play('sfx_start');
+          this.scene.start("tutorialscene");    
         }
 		
 		

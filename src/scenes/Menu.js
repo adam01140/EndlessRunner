@@ -6,6 +6,7 @@ class Menu extends Phaser.Scene {
     preload() {
         // load audio
         this.load.audio('sfx_select', './assets/blip_select12.wav');
+		this.load.audio('sfx_play', './assets/play.mp3');
         this.load.audio('sfx_explosion', './assets/explosion38.wav');
 		this.load.audio('music', './assets/music.mp3');
         this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
@@ -67,7 +68,7 @@ class Menu extends Phaser.Scene {
             gameTimer: 60000    
           }
           this.sound.play('sfx_select');
-          this.scene.start("tutorialscene");    
+          this.scene.start("creditsscene");    
         }
 		
 		

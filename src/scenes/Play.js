@@ -226,7 +226,13 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
         }
 		
 		if(keyR.isDown) {
-          location.reload();
+			
+			this.sound.play('sfx_redo');
+          
+		  if (window.confirm("You are about to restart")) {
+    location.reload();
+}
+		  
 
         }
 		
