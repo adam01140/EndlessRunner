@@ -47,13 +47,9 @@ class Play extends Phaser.Scene {
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
 
         // green UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x9946D0).setOrigin(0, 0);
         // white borders
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
-
+        
         // add Rocket (p1)
         
 		// Pass the currentPlayer as a property of the scene when creating the Rocket object
@@ -187,12 +183,30 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
             this.scene.start("menuScene");
         }
 
-        this.starfield.tilePositionX -= 4;  // update tile sprite
+       
 
+		if(keyRIGHT.isDown) {
+          this.starfield.tilePositionX += 4;  // update tile sprite
+        }
+		
+		if(keyR.isDown) {
+          location.reload();
+
+        }
+		
+		if(keyLEFT.isDown) {
+          this.starfield.tilePositionX -= 4;  // update tile sprite
+        }
+			
+			
+		this.starfield.tilePositionX += 2;
+			
+			
         if(!this.gameOver) {
             this.p1Rocket.update();             // update p1
             this.ship01.update(); 
-
+			this.ship02.update(); 
+			this.ship03.update(); 
 
 	
 			if(this.ship01.x <= 0) {
