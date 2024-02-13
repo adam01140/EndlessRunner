@@ -215,9 +215,7 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
             this.scene.restart();
         }
 
-        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            this.scene.start("menuScene");
-        }
+        
 
        
 
@@ -268,7 +266,7 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 			//this.ship01.y = Phaser.Math.Between(borderUISize * 4, borderUISize * 13);
 			this.ship01.reset();
 			
-			//alert('hey')
+			//alert(this.ship01.x)
 			
 			}
 			
@@ -282,6 +280,8 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 			if (this.checkCollision(this.p1Rocket, spaceship)) {
             this.p1Rocket.reset();
             this.shipExplode(spaceship);
+			
+			
         }
             // Example collision check with player rocket (assuming rocket is defined)
             // if (checkCollision(this.rocket, spaceship)) {
@@ -325,8 +325,27 @@ let randomx = Phaser.Math.Between(borderUISize * 4, borderUISize * 18);
 
     shipExplode(ship) {
 		
-		this.clock.elapsed -= 5000; // Adds 5 seconds to the clock
 		
+		let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+		
+		
+		this.clock.elapsed -= 5000; // Adds 5 seconds to the clock
+		this.add.text(game.config.width/2, game.config.height/2, 'GAME ', scoreConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'OVER ', scoreConfig).setOrigin(0.5);
+        this.gameOver = true;
+			
+			
 		  let emitter = this.add.particles('particle', {
         x: ship.x,
         y: ship.y,
